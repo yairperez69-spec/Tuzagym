@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Tuzagym.Views.RecuperarContrasenaPage"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="#0B0F17">
+
+    <Grid>
+        <Image
+            Source="gym_bg.jpg"
+            Aspect="AspectFill"
+            Opacity="0.35"
+            InputTransparent="True" />
+
+        <BoxView
+            Color="#DD0B0F17"
+            InputTransparent="True" />
+
+        <ScrollView>
+            <VerticalStackLayout
+                Padding="20,30"
+                Spacing="18"
+                HorizontalOptions="Fill">
+
+                <Button
+                    Text="← VOLVER"
+                    Clicked="OnVolverClicked"
+                    BackgroundColor="#1E293B"
+                    TextColor="#00E676"
+                    HorizontalOptions="Start"
+                    CornerRadius="10" />
+
+                <Border
+                    WidthRequest="120"
+                    HeightRequest="120"
+                    BackgroundColor="#131B2E"
+                    Stroke="#00E676"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 60"
+                    HorizontalOptions="Center"
+                    Padding="5">
+
+                    <Image
+                        Source="logo_tuza.png"
+                        Aspect="AspectFit" />
+                </Border>
+
+                <Label
+                    Text="RECUPERAR CONTRASEÑA"
+                    TextColor="#00E676"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Recibe un código en tu correo para restablecer tu contraseña."
+                    TextColor="#CBD5E1"
+                    FontSize="13"
+                    HorizontalTextAlignment="Center" />
+
+                <Border
+                    BackgroundColor="#E6131B2E"
+                    Stroke="#00E676"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 18"
+                    Padding="20"
+                    MaximumWidthRequest="450"
+                    HorizontalOptions="Fill">
+
+                    <VerticalStackLayout Spacing="14">
+
+                        <Label
+                            Text="CORREO ELECTRÓNICO"
+                            TextColor="#00E676"
+                            FontAttributes="Bold"
+                            FontSize="12" />
+
+                        <Entry
+                            x:Name="CorreoEntry"
+                            Placeholder="ejemplo@tuzagym.com"
+                            Keyboard="Email"
+                            TextColor="White"
+                            PlaceholderColor="#94A3B8"
+                            BackgroundColor="#1E293B"
+                            HeightRequest="50" />
+
+                        <Button
+                            x:Name="EnviarCodigoButton"
+                            Text="ENVIAR CÓDIGO"
+                            Clicked="OnEnviarCodigoClicked"
+                            BackgroundColor="#00E676"
+                            TextColor="#0B0F17"
+                            FontAttributes="Bold"
+                            HeightRequest="50"
+                            CornerRadius="10" />
+
+                        <VerticalStackLayout
+                            x:Name="SeccionRestablecer"
+                            IsVisible="False"
+                            Spacing="12">
+
+                            <Label
+                                Text="CÓDIGO DE VERIFICACIÓN"
+                                TextColor="#00E676"
+                                FontAttributes="Bold" />
+
+                            <Entry
+                                x:Name="CodigoEntry"
+                                Placeholder="Código de 6 dígitos"
+                                Keyboard="Numeric"
+                                MaxLength="6"
+                                TextColor="White"
+                                BackgroundColor="#1E293B" />
+
+                            <Label
+                                Text="NUEVA CONTRASEÑA"
+                                TextColor="#00E676"
+                                FontAttributes="Bold" />
+
+                            <Entry
+                                x:Name="NuevaContrasenaEntry"
+                                Placeholder="Mínimo 8 caracteres"
+                                IsPassword="True"
+                                TextColor="White"
+                                BackgroundColor="#1E293B" />
+
+                            <Label
+                                Text="CONFIRMAR CONTRASEÑA"
+                                TextColor="#00E676"
+                                FontAttributes="Bold" />
+
+                            <Entry
+                                x:Name="ConfirmarContrasenaEntry"
+                                Placeholder="Repite tu contraseña"
+                                IsPassword="True"
+                                TextColor="White"
+                                BackgroundColor="#1E293B" />
+
+                            <Button
+                                x:Name="CambiarContrasenaButton"
+                                Text="CAMBIAR CONTRASEÑA"
+                                Clicked="OnCambiarContrasenaClicked"
+                                BackgroundColor="#00E676"
+                                TextColor="#0B0F17"
+                                FontAttributes="Bold"
+                                HeightRequest="52"
+                                CornerRadius="10" />
+
+                        </VerticalStackLayout>
+
+                        <ActivityIndicator
+                            x:Name="CargandoIndicator"
+                            Color="#00E676"
+                            IsVisible="False"
+                            IsRunning="False"
+                            HorizontalOptions="Center" />
+
+                        <Button
+                            Text="VOLVER AL LOGIN"
+                            Clicked="OnVolverClicked"
+                            BackgroundColor="Transparent"
+                            TextColor="#CBD5E1" />
+
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

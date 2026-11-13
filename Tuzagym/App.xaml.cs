@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Tuzagym.Views;
 
 namespace Tuzagym
 {
@@ -7,11 +7,14 @@ namespace Tuzagym
         public App()
         {
             InitializeComponent();
+
+            // Carga la estructura de navegación principal
+            MainPage = new AppShell();
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new AppShell());
+            return new Window(MainPage);
         }
     }
 }

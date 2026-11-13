@@ -1,3 +1,6 @@
 <Solution>
-  <Project Path="Tuzagym/Tuzagym.csproj" />
+  <Project Path="Tuzagym.API/Tuzagym.API.csproj" Id="ab16e7c4-896d-4887-ae95-1174ef91566e" />
+  <Project Path="Tuzagym/Tuzagym.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
 </Solution>

@@ -15,10 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 // SERVIDOR HTTP EN RED LOCAL
 // ======================================
 
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(5192);
-});
+
 
 // ======================================
 // CONTROLADORES
@@ -36,15 +33,34 @@ builder.Services.AddScoped<EmailService>();
 // Servicio automatico de membresias
 builder.Services.AddHostedService<RecordatoriosMembresiaService>();
 
+
 // ======================================
-// SQL SERVER
+// BASE DE DATOS: SQL SERVER / NEON
 // ======================================
 
-builder.Services.AddDbContext<ApplicationDbContext>(
-    options =>
-        options.UseSqlServer(
-            builder.Configuration.GetConnectionString(
-                "DefaultConnection")));
+var connectionString = builder.Configuration
+    .GetConnectionString("DefaultConnection");
+
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException(
+        "Falta configurar ConnectionStrings:DefaultConnection.");
+}
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    if (builder.Environment.IsDevelopment())
+    {
+        // SQL Server Express de tu computadora
+        options.UseSqlServer(connectionString);
+    }
+    else
+    {
+        // PostgreSQL de Neon para Render
+        options.UseNpgsql(connectionString);
+    }
+});
+
 
 builder.Services.AddMemoryCache();
 

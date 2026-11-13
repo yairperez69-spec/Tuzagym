@@ -1,0 +1,898 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Tuzagym.Views.EntrenadorHomePage"
+    BackgroundColor="#080D14"
+    Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Fondo">#080D14</Color>
+            <Color x:Key="Panel">#B8111B28</Color>
+            <Color x:Key="Campo">#D0182434</Color>
+            <Color x:Key="Verde">#19D98B</Color>
+            <Color x:Key="Texto">#F1F5F9</Color>
+            <Color x:Key="Secundario">#9BAEC4</Color>
+            <Color x:Key="Borde">#29394D</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <!--
+        DISEÑO MÓVIL:
+        Fila 0: Encabezado
+        Fila 1: Contenido desplazable
+        Fila 2: Navegación inferior
+
+        Se conservan los nombres y eventos
+        del XAML original.
+    -->
+
+    <Grid RowDefinitions="Auto,*,Auto"
+          BackgroundColor="Transparent">
+
+        <!-- Fondo fijo en toda la pantalla, detrás de las tres filas -->
+        <Image Grid.Row="0"
+               Grid.RowSpan="3"
+               Source="fondo_gym.png"
+               Aspect="AspectFill"
+               HorizontalOptions="Fill"
+               VerticalOptions="Fill"
+               InputTransparent="True" />
+
+        <!-- Oscurecimiento moderado para leer los controles sin ocultar el gimnasio -->
+        <BoxView Grid.Row="0"
+                 Grid.RowSpan="3"
+                 Color="#66000000"
+                 InputTransparent="True" />
+
+        <!-- ================================= -->
+        <!-- ENCABEZADO -->
+        <!-- ================================= -->
+
+        <Grid Grid.Row="0"
+              BackgroundColor="#B80E1622"
+              Padding="15,12"
+              ColumnDefinitions="*,Auto"
+              ColumnSpacing="10">
+
+            <HorizontalStackLayout
+                Grid.Column="0"
+                Spacing="10"
+                VerticalOptions="Center">
+
+                <Border
+                    BackgroundColor="#173D35"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 12"
+                    WidthRequest="43"
+                    HeightRequest="43">
+
+                    <Image
+                        Source="logo_tuza.png"
+                        WidthRequest="43"
+                        HeightRequest="43"
+                        Aspect="AspectFit"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
+                </Border>
+
+                <VerticalStackLayout
+                    Spacing="2"
+                    VerticalOptions="Center">
+
+                    <Label
+                        Text="TUZAGYM"
+                        FontSize="19"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource Texto}"/>
+
+                    <Label
+                        Text="PANEL DEL ENTRENADOR"
+                        FontSize="9"
+                        CharacterSpacing="0.7"
+                        TextColor="{StaticResource Verde}"/>
+
+                </VerticalStackLayout>
+
+            </HorizontalStackLayout>
+
+            <Button
+                Grid.Column="1"
+                Text="Salir"
+                Clicked="OnCerrarSesionClicked"
+                BackgroundColor="#1B2636"
+                TextColor="#F87171"
+                FontSize="12"
+                CornerRadius="10"
+                Padding="14,8"
+                HeightRequest="40"
+                VerticalOptions="Center"/>
+
+        </Grid>
+
+        <!-- ================================= -->
+        <!-- CONTENIDO PRINCIPAL -->
+        <!-- ================================= -->
+
+        <ScrollView
+            x:Name="ScrollEntrenador"
+            Grid.Row="1"
+            VerticalScrollBarVisibility="Never">
+
+            <VerticalStackLayout
+                Padding="{OnIdiom Phone='12,18,12,24', Default='16,20,16,28'}"
+                Spacing="18"
+                MaximumWidthRequest="800"
+                HorizontalOptions="Fill">
+
+                <!-- ========================= -->
+                <!-- VISTA INICIO -->
+                <!-- ========================= -->
+
+                <VerticalStackLayout
+                    x:Name="VistaInicio"
+                    Spacing="18">
+
+                    <!-- TÍTULO -->
+
+                    <VerticalStackLayout Spacing="6">
+
+                        <Label
+                            Text="Panel del Coach"
+                            FontSize="27"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource Texto}"/>
+
+                        <Label
+                            Text="Administra tus alumnos y sus entrenamientos."
+                            FontSize="13"
+                            TextColor="{StaticResource Secundario}"
+                            LineBreakMode="WordWrap"/>
+
+                    </VerticalStackLayout>
+
+                    <!-- ESTADÍSTICAS -->
+
+                    <Grid
+                        ColumnDefinitions="*,*"
+                        RowDefinitions="Auto,Auto"
+                        ColumnSpacing="10"
+                        RowSpacing="10">
+                        <!-- TOTAL ALUMNOS -->
+
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            BackgroundColor="{StaticResource Panel}"
+                            Stroke="{StaticResource Borde}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 15"
+                            Padding="15">
+
+                            <VerticalStackLayout Spacing="8">
+
+                                <Label
+                                    Text="ALUMNOS"
+                                    FontSize="11"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource Secundario}"/>
+
+                                <Label
+                                    x:Name="LblTotalAlumnos"
+                                    Text="0"
+                                    FontSize="30"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource Texto}"/>
+
+                                <Label
+                                    Text="Registrados"
+                                    FontSize="11"
+                                    TextColor="{StaticResource Verde}"/>
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+                        <!-- TOTAL RUTINAS -->
+
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            BackgroundColor="{StaticResource Panel}"
+                            Stroke="{StaticResource Borde}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 15"
+                            Padding="15">
+
+                            <VerticalStackLayout Spacing="8">
+
+                                <Label
+                                    Text="RUTINAS"
+                                    FontSize="11"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource Secundario}"/>
+
+                                <Label
+                                    x:Name="LblTotalRutinas"
+                                    Text="0"
+                                    FontSize="30"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource Texto}"/>
+
+                                <Label
+                                    Text="Asignadas"
+                                    FontSize="11"
+                                    TextColor="{StaticResource Verde}"/>
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+                        <!-- ENTRENAMIENTOS EN PROCESO -->
+
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            BackgroundColor="{StaticResource Panel}"
+                            Stroke="{StaticResource Borde}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 15"
+                            Padding="15">
+
+                            <Grid ColumnDefinitions="*,Auto"
+                                  ColumnSpacing="10">
+
+                                <VerticalStackLayout
+                                    Grid.Column="0"
+                                    Spacing="7">
+
+                                    <Label
+                                        Text="ENTRENANDO AHORA"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource Secundario}"/>
+
+                                    <Label
+                                       Text="Sesiones en proceso"
+                                        FontSize="12"
+                                        TextColor="{StaticResource Verde}"/>
+
+                                </VerticalStackLayout>
+
+                                <Label
+                                    Grid.Column="1"
+                                    x:Name="LblAlumnosActivos"
+                                    Text="—"
+                                    FontSize="32"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource Verde}"
+                                    VerticalOptions="Center"/>
+
+                            </Grid>
+
+                        </Border>
+
+                    </Grid>
+
+                    <!-- ========================= -->
+                    <!-- FORMULARIO ASIGNAR RUTINA -->
+                    <!-- ========================= -->
+
+                    <Border
+                        BackgroundColor="{StaticResource Panel}"
+                        Stroke="{StaticResource Borde}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="17">
+
+                        <VerticalStackLayout Spacing="15">
+
+                            <Label
+                                Text="Asignar nueva rutina"
+                                FontSize="21"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource Texto}"/>
+
+                            <Label
+                                Text="Configura el entrenamiento para uno de tus alumnos."
+                                FontSize="12"
+                                TextColor="{StaticResource Secundario}"
+                                LineBreakMode="WordWrap"/>
+
+                            <!-- ALUMNO -->
+
+                            <Label
+                                Text="ALUMNO"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource Secundario}"/>
+
+                            <Picker
+                                x:Name="PickerSocio"
+                                Title="Selecciona un alumno"
+                                TitleColor="{StaticResource Secundario}"
+                                TextColor="{StaticResource Texto}"
+                                BackgroundColor="{StaticResource Campo}"
+                                HeightRequest="52"
+                                HorizontalOptions="Fill"/>
+
+                            <!-- NOMBRE -->
+
+                            <Label
+                                Text="NOMBRE DE LA RUTINA"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource Secundario}"/>
+
+                            <Entry
+                                x:Name="EntryNombreRutina"
+                                Placeholder="Ej. Pecho y tríceps"
+                                PlaceholderColor="#8395AA"
+                                TextColor="{StaticResource Texto}"
+                                BackgroundColor="{StaticResource Campo}"
+                                HeightRequest="52"
+                                HorizontalOptions="Fill"/>
+
+                            <!-- SERIES Y REPETICIONES -->
+
+                            <Grid
+                                ColumnDefinitions="*,*"
+                                ColumnSpacing="12">
+
+                                <VerticalStackLayout
+                                    Grid.Column="0"
+                                    Spacing="7">
+
+                                    <Label
+                                        Text="SERIES"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource Secundario}"/>
+
+                                    <Entry
+                                        x:Name="EntrySeries"
+                                        Placeholder="Ej. 4"
+                                        Keyboard="Numeric"
+                                        PlaceholderColor="#8395AA"
+                                        TextColor="{StaticResource Texto}"
+                                        BackgroundColor="{StaticResource Campo}"
+                                        HeightRequest="52"/>
+
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="7">
+
+                                    <Label
+                                        Text="REPETICIONES"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource Secundario}"/>
+
+                                    <Entry
+                                        x:Name="EntryRepeticiones"
+                                        Placeholder="Ej. 12"
+                                        Keyboard="Numeric"
+                                        PlaceholderColor="#8395AA"
+                                        TextColor="{StaticResource Texto}"
+                                        BackgroundColor="{StaticResource Campo}"
+                                        HeightRequest="52"/>
+
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                            <!-- GUARDAR -->
+
+                            <Button
+                                Text="＋  GUARDAR Y ASIGNAR"
+                                Clicked="OnAsignarRutinaClicked"
+                                BackgroundColor="{StaticResource Verde}"
+                                TextColor="#062018"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                HeightRequest="54"
+                                CornerRadius="12"
+                                HorizontalOptions="Fill"/>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <!-- ========================= -->
+                    <!-- RUTINAS ASIGNADAS -->
+                    <!-- ========================= -->
+
+                    <Border
+                        BackgroundColor="{StaticResource Panel}"
+                        Stroke="{StaticResource Borde}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="17">
+
+                        <VerticalStackLayout Spacing="13">
+
+                            <Label
+                                Text="Rutinas asignadas"
+                                FontSize="20"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource Texto}"/>
+
+                            <Label
+                                Text="Selecciona una rutina para ver sus detalles."
+                                FontSize="12"
+                                TextColor="{StaticResource Secundario}"
+                                LineBreakMode="WordWrap"/>
+
+                            <CollectionView
+                                x:Name="ListaRutinas"
+                                ItemsSource="{Binding Rutinas}"
+                                SelectionMode="Single"
+                                SelectionChanged="OnRutinaSeleccionada"
+                                EmptyView="Todavía no hay rutinas asignadas."
+                                HeightRequest="300">
+
+                                <CollectionView.ItemTemplate>
+
+                                    <DataTemplate>
+
+                                        <Border
+                                            BackgroundColor="{StaticResource Campo}"
+                                            Stroke="{StaticResource Borde}"
+                                            StrokeThickness="1"
+                                            StrokeShape="RoundRectangle 12"
+                                            Padding="13"
+                                            Margin="0,5">
+
+                                            <Grid
+                                                ColumnDefinitions="*,Auto"
+                                                ColumnSpacing="10">
+
+                                                <VerticalStackLayout
+                                                    Grid.Column="0"
+                                                    Spacing="5">
+
+                                                    <Label
+                                                        Text="{Binding Alumno}"
+                                                        FontSize="14"
+                                                        FontAttributes="Bold"
+                                                        TextColor="{StaticResource Texto}"
+                                                        LineBreakMode="WordWrap"/>
+
+                                                    <Label
+                                                        Text="{Binding Nombre}"
+                                                        FontSize="13"
+                                                        TextColor="{StaticResource Verde}"
+                                                        LineBreakMode="WordWrap"/>
+
+                                                    <Label
+                                                        Text="{Binding Resumen}"
+                                                        FontSize="11"
+                                                        TextColor="{StaticResource Secundario}"
+                                                        LineBreakMode="WordWrap"/>
+
+                                                </VerticalStackLayout>
+
+                                                <Label
+                                                    Grid.Column="1"
+                                                    Text="›"
+                                                    FontSize="25"
+                                                    TextColor="{StaticResource Verde}"
+                                                    VerticalOptions="Center"/>
+
+                                            </Grid>
+
+                                        </Border>
+
+                                    </DataTemplate>
+
+                                </CollectionView.ItemTemplate>
+
+                            </CollectionView>
+
+                            <Button
+                                Text="Eliminar rutina seleccionada"
+                                Clicked="OnEliminarRutinaClicked"
+                                BackgroundColor="#40212A"
+                                TextColor="#FCA5A5"
+                                FontSize="12"
+                                CornerRadius="11"
+                                HeightRequest="48"/>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                </VerticalStackLayout>
+
+                <!-- ========================= -->
+                <!-- VISTA MIS ALUMNOS -->
+                <!-- ========================= -->
+
+                <VerticalStackLayout
+                    x:Name="VistaAlumnos"
+                    IsVisible="False"
+                    Spacing="16">
+
+                    <VerticalStackLayout Spacing="6">
+
+                        <Label
+                            Text="Mis alumnos"
+                            FontSize="27"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource Texto}"/>
+
+                        <Label
+                            Text="Busca un alumno y selecciónalo para preparar su rutina."
+                            FontSize="13"
+                            TextColor="{StaticResource Secundario}"
+                            LineBreakMode="WordWrap"/>
+
+                    </VerticalStackLayout>
+
+                    <SearchBar
+                        x:Name="BuscarAlumno"
+                        Placeholder="Buscar alumno..."
+                        TextColor="{StaticResource Texto}"
+                        PlaceholderColor="{StaticResource Secundario}"
+                        BackgroundColor="{StaticResource Panel}"
+                        TextChanged="OnBuscarAlumnoChanged"/>
+
+                    <CollectionView
+                        x:Name="ListaAlumnos"
+                        SelectionMode="Single"
+                        SelectionChanged="OnAlumnoSeleccionado"
+                        EmptyView="No se encontraron alumnos."
+                        HeightRequest="520">
+
+                        <CollectionView.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Border
+                                    BackgroundColor="{StaticResource Panel}"
+                                    Stroke="{StaticResource Borde}"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 14"
+                                    Padding="15"
+                                    Margin="0,5">
+
+                                    <Grid
+                                        ColumnDefinitions="44,*,Auto"
+                                        ColumnSpacing="12">
+
+                                        <Border
+                                            Grid.Column="0"
+                                            BackgroundColor="#173D35"
+                                            StrokeThickness="0"
+                                            StrokeShape="RoundRectangle 25"
+                                            WidthRequest="42"
+                                            HeightRequest="42">
+
+                                            <Label
+                                                Text="♙"
+                                                FontSize="22"
+                                                TextColor="{StaticResource Verde}"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"/>
+
+                                        </Border>
+
+                                        <VerticalStackLayout
+                                            Grid.Column="1"
+                                            Spacing="5"
+                                            VerticalOptions="Center">
+
+                                            <Label
+                                                Text="{Binding Nombre}"
+                                                FontSize="14"
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource Texto}"
+                                                LineBreakMode="WordWrap"/>
+
+                                            <Label
+                                                Text="Socio registrado"
+                                                FontSize="11"
+                                                TextColor="{StaticResource Secundario}"/>
+
+                                        </VerticalStackLayout>
+
+                                        <Label
+                                            Grid.Column="2"
+                                            Text="›"
+                                            FontSize="24"
+                                            TextColor="{StaticResource Verde}"
+                                            VerticalOptions="Center"/>
+
+                                    </Grid>
+
+                                </Border>
+
+                            </DataTemplate>
+
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+                </VerticalStackLayout>
+
+                <!-- ========================= -->
+                <!-- VISTA GESTIÓN DE RUTINAS -->
+                <!-- ========================= -->
+
+                <VerticalStackLayout
+                    x:Name="VistaRutinas"
+                    IsVisible="False"
+                    Spacing="16">
+
+                    <VerticalStackLayout Spacing="6">
+
+                        <Label
+                            Text="Gestión de rutinas"
+                            FontSize="27"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource Texto}"/>
+
+                        <Label
+                            Text="Selecciona una rutina para editarla, comentar o desactivarla."
+                            FontSize="13"
+                            TextColor="{StaticResource Secundario}"
+                            LineBreakMode="WordWrap"/>
+
+                    </VerticalStackLayout>
+
+                    <!-- Edición táctil para Android -->
+                    <Border x:Name="PanelEditarRutina"
+                            IsVisible="False"
+                            BackgroundColor="{StaticResource Panel}"
+                            Stroke="{StaticResource Verde}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 16"
+                            Padding="16">
+                        <VerticalStackLayout Spacing="12">
+                            <Label Text="Editar rutina seleccionada"
+                                   FontSize="20" FontAttributes="Bold"
+                                   TextColor="{StaticResource Texto}" />
+                            <Label x:Name="LblRutinaSeleccionada"
+                                   FontSize="12" TextColor="{StaticResource Secundario}" />
+                            <Label Text="NOMBRE" TextColor="{StaticResource Secundario}" FontSize="11" />
+                            <Entry x:Name="EditarNombre" MaxLength="100"
+                                   BackgroundColor="{StaticResource Campo}"
+                                   TextColor="{StaticResource Texto}" HeightRequest="52" />
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                                <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                    <Label Text="SERIES" TextColor="{StaticResource Secundario}" FontSize="11" />
+                                    <Entry x:Name="EditarSeries" Keyboard="Numeric"
+                                           BackgroundColor="{StaticResource Campo}"
+                                           TextColor="{StaticResource Texto}" HeightRequest="52" />
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                    <Label Text="REPETICIONES" TextColor="{StaticResource Secundario}" FontSize="11" />
+                                    <Entry x:Name="EditarRepeticiones" Keyboard="Numeric"
+                                           BackgroundColor="{StaticResource Campo}"
+                                           TextColor="{StaticResource Texto}" HeightRequest="52" />
+                                </VerticalStackLayout>
+                            </Grid>
+                            <Label Text="DESCANSO EN SEGUNDOS" TextColor="{StaticResource Secundario}" FontSize="11" />
+                            <Entry x:Name="EditarDescanso" Keyboard="Numeric"
+                                   BackgroundColor="{StaticResource Campo}"
+                                   TextColor="{StaticResource Texto}" HeightRequest="52" />
+                            <Label Text="COMENTARIO PARA EL ALUMNO (OPCIONAL)"
+                                   TextColor="{StaticResource Secundario}" FontSize="11" />
+                            <Editor x:Name="EditarComentario" MaxLength="500"
+                                    Placeholder="Recomendaciones, técnica o indicaciones..."
+                                    PlaceholderColor="#8395AA"
+                                    TextColor="{StaticResource Texto}"
+                                    BackgroundColor="{StaticResource Campo}"
+                                    AutoSize="TextChanges" MinimumHeightRequest="105" />
+                            <Button Text="GUARDAR CAMBIOS DE RUTINA"
+                                    Clicked="OnGuardarCambiosRutinaClicked"
+                                    BackgroundColor="{StaticResource Verde}"
+                                    TextColor="#062018" FontAttributes="Bold"
+                                    CornerRadius="12" HeightRequest="52" />
+                            <Button Text="GUARDAR SOLO COMENTARIO"
+                                    Clicked="OnGuardarComentarioClicked"
+                                    BackgroundColor="#173D35"
+                                    TextColor="{StaticResource Verde}"
+                                    CornerRadius="12" HeightRequest="52" />
+                            <Button Text="DESACTIVAR ASIGNACIÓN"
+                                    Clicked="OnEliminarRutinaClicked"
+                                    BackgroundColor="#40212A"
+                                    TextColor="#FCA5A5" CornerRadius="12" HeightRequest="52" />
+                            <Button Text="Cancelar edición" Clicked="OnCancelarEdicionClicked"
+                                    BackgroundColor="Transparent"
+                                    TextColor="{StaticResource Secundario}" HeightRequest="48" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <CollectionView
+                        x:Name="ListaGestionRutinas"
+                        ItemsSource="{Binding Rutinas}"
+                        SelectionMode="Single"
+                        SelectionChanged="OnGestionRutinaSeleccionada"
+                        EmptyView="Todavía no hay rutinas."
+                        HeightRequest="550">
+
+                        <CollectionView.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <Border
+                                    BackgroundColor="{StaticResource Panel}"
+                                    Stroke="{StaticResource Borde}"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 14"
+                                    Padding="16"
+                                    Margin="0,5">
+
+                                    <VerticalStackLayout Spacing="7">
+
+                                        <Label
+                                            Text="{Binding Nombre}"
+                                            FontSize="17"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource Verde}"
+                                            LineBreakMode="WordWrap"/>
+
+                                        <Label
+                                            Text="{Binding Alumno, StringFormat='Alumno: {0}'}"
+                                            FontSize="13"
+                                            TextColor="{StaticResource Texto}"
+                                            LineBreakMode="WordWrap"/>
+
+                                        <Label
+                                            Text="{Binding Resumen}"
+                                            FontSize="12"
+                                            TextColor="{StaticResource Secundario}"
+                                            LineBreakMode="WordWrap"/>
+
+                                    </VerticalStackLayout>
+
+                                </Border>
+
+                            </DataTemplate>
+
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+                </VerticalStackLayout>
+
+                <!-- ========================= -->
+                <!-- VISTA PROGRESO -->
+                <!-- ========================= -->
+
+                <VerticalStackLayout
+                    x:Name="VistaProgreso"
+                    IsVisible="False"
+                    Spacing="17">
+
+                    <VerticalStackLayout Spacing="6">
+
+                        <Label
+                            Text="Progreso General"
+                            FontSize="27"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource Texto}"/>
+
+                        <Label
+                            Text="Métricas y estadísticas generales del gimnasio."
+                            FontSize="13"
+                            TextColor="{StaticResource Secundario}"
+                            LineBreakMode="WordWrap"/>
+
+                    </VerticalStackLayout>
+
+                    <Border
+                        BackgroundColor="{StaticResource Panel}"
+                        Stroke="{StaticResource Borde}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="20">
+
+                        <VerticalStackLayout Spacing="12">
+
+                            <Label
+                                Text="Total de Rutinas Registradas"
+                                FontSize="14"
+                                TextColor="{StaticResource Secundario}"/>
+
+                            <Label
+                                x:Name="LblProgresoRutinas"
+                                Text="0"
+                                FontSize="38"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource Verde}"/>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+        <!-- ================================= -->
+        <!-- NAVEGACIÓN INFERIOR MÓVIL -->
+        <!-- ================================= -->
+
+        <Border
+            Grid.Row="2"
+            BackgroundColor="#D90B121C"
+            Stroke="#29394D"
+            StrokeThickness="1"
+            Padding="5,8,5,10">
+
+
+            <Grid
+    ColumnDefinitions="*,*,*,*"
+    ColumnSpacing="2">
+
+                <!-- INICIO -->
+                <Button
+        x:Name="BtnInicio"
+        Grid.Column="0"
+        Text="⌂ Inicio"
+        Clicked="OnInicioClicked"
+        BackgroundColor="#12352F"
+        TextColor="#19D98B"
+        FontSize="11"
+        FontAttributes="Bold"
+        CornerRadius="10"
+        HeightRequest="48"
+        Padding="3,4" />
+
+                <!-- ALUMNOS -->
+                <Button
+        x:Name="BtnAlumnos"
+        Grid.Column="1"
+        Text="♙ Alumnos"
+        Clicked="OnAlumnosClicked"
+        BackgroundColor="Transparent"
+        TextColor="#F1F5F9"
+        FontSize="11"
+        CornerRadius="10"
+        HeightRequest="48"
+        Padding="3,4" />
+
+                <!-- RUTINAS -->
+                <Button
+        x:Name="BtnRutinas"
+        Grid.Column="2"
+        Text="▤ Rutinas"
+        Clicked="OnRutinasClicked"
+        BackgroundColor="Transparent"
+        TextColor="#F1F5F9"
+        FontSize="11"
+        CornerRadius="10"
+        HeightRequest="48"
+        Padding="3,4" />
+
+                <!-- PROGRESO -->
+                <Button
+        x:Name="BtnTabProgreso"
+        Grid.Column="3"
+        Text="↗ Progreso"
+        Clicked="OnProgresoClicked"
+        BackgroundColor="Transparent"
+        TextColor="#F1F5F9"
+        FontSize="11"
+        CornerRadius="10"
+        HeightRequest="48"
+        Padding="3,4" />
+
+            </Grid>
+
+
+        </Border>
+
+    </Grid>
+
+</ContentPage>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net10.0-android</TargetFrameworks>
@@ -25,10 +25,10 @@
 		     For individual files, you can override by setting Inflator metadata:
 		       <MauiXaml Update="MyPage.xaml" Inflator="Default" /> (reverts to defaults: Runtime for Debug, XamlC for Release)
 		       <MauiXaml Update="MyPage.xaml" Inflator="Runtime" /> (force runtime inflation) -->
-		<MauiXamlInflator>SourceGen</MauiXamlInflator>
+	<!-- <MauiXamlInflator>SourceGen</MauiXamlInflator> -->
 
 		<!-- Display name -->
-		<ApplicationTitle>Tuzagym</ApplicationTitle>
+		<ApplicationTitle>TuzaGym</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.tuzagym</ApplicationId>
@@ -49,14 +49,19 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon
+				Include="Resources\AppIcon\tuza_app_icon.png"
+				Color="#0B111B" />
+		<!-- LOGO PRINCIPAL DE TUZAGYM -->
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- PANTALLA DE INICIO DE TUZAGYM -->
+		<MauiImage Include="Resources\Splash\tuza_splash.png" />
+
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 		
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -66,8 +71,58 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage  Include="Resources\Raw\**"
+        LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.1" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
+		<PackageReference Include="QRCoder" Version="1.8.1" />
+		<PackageReference Include="QuestPDF" Version="2026.9.1" />
+		<PackageReference Include="ZXing.Net.Maui.Controls" Version="0.10.4" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\AdminHomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\EntrenadorHomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\EscanearQrPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\RecepcionHomePage.xaml">
+	    <Generator></Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\RecuperarContrasenaPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SocioHomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+	
+<ItemGroup>
+    <MauiXaml Update="Views\AdminHomePage.xaml" Inflator="Default" />
+
+    <MauiXaml Update="Views\EntrenadorHomePage.xaml" Inflator="Default" />
+
+    <MauiXaml Update="Views\EscanearQrPage.xaml" Inflator="Default" />
+
+    <MauiXaml Update="Views\LoginPage.xaml" Inflator="Default" />
+
+    <MauiXaml Update="Views\RecepcionHomePage.xaml" Inflator="Default" />
+
+    <MauiXaml Update="Views\RecuperarContrasenaPage.xaml" Inflator="Default" />
+
+    <MauiXaml Update="Views\SocioHomePage.xaml" Inflator="Default" />
+</ItemGroup>
+
 
 </Project>

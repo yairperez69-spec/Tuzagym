@@ -3,12 +3,32 @@
     x:Class="Tuzagym.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Tuzagym"
-    Title="Tuzagym">
+    xmlns:views="clr-namespace:Tuzagym.Views"
+    Shell.FlyoutBehavior="Disabled">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="Login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="LoginPage" />
+
+    <ShellContent
+        Title="Socio Home"
+        ContentTemplate="{DataTemplate views:SocioHomePage}"
+        Route="SocioHomePage" />
+
+    <ShellContent
+        Title="Recepción Home"
+        ContentTemplate="{DataTemplate views:RecepcionHomePage}"
+        Route="RecepcionHomePage" />
+
+    <ShellContent
+        Title="Entrenador Home"
+        ContentTemplate="{DataTemplate views:EntrenadorHomePage}"
+        Route="EntrenadorHomePage" />
+
+    <ShellContent
+        Title="Admin Home"
+        ContentTemplate="{DataTemplate views:AdminHomePage}"
+        Route="AdminHomePage" />
 
 </Shell>

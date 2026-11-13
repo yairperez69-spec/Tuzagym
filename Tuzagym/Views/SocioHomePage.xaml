@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Tuzagym.Views.SocioHomePage"
+    NavigationPage.HasNavigationBar="False"
+    Title="Inicio | TuzaGym"
+    BackgroundColor="#0B0F19">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <!-- FONDO DEL GIMNASIO -->
+        <Image
+            Grid.RowSpan="2"
+            Source="fondo_gym.png"
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            InputTransparent="True" />
+
+      
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <ScrollView
+            x:Name="ContenidoSocio"
+            Grid.Row="0"
+            BackgroundColor="Transparent"
+            VerticalScrollBarVisibility="Never"
+            HorizontalScrollBarVisibility="Never">
+
+            <VerticalStackLayout
+                Padding="{OnIdiom Phone='12,14,12,20',
+                                  Default='24,25,24,30'}"
+                Spacing="{OnIdiom Phone=12, Default=18}"
+                MaximumWidthRequest="850"
+                HorizontalOptions="Fill">
+
+                <!-- BIENVENIDA -->
+                <Border
+                    BackgroundColor="#B8121A27"
+                    Stroke="#365064"
+                    StrokeThickness="1"
+                    Padding="{OnIdiom Phone=14, Default=20}"
+                    StrokeShape="RoundRectangle 16">
+
+                    <VerticalStackLayout Spacing="5">
+
+                        <Label
+                            Text="TUZAGYM / SOCIO"
+                            TextColor="#00E676"
+                            FontSize="11"
+                            FontAttributes="Bold" />
+
+                        <Label
+                            Text="BIENVENIDO"
+                            TextColor="#CBD5E1"
+                            FontSize="12" />
+
+                        <Label
+                            Text="{Binding NombreSocio}"
+                            TextColor="White"
+                            FontSize="{OnIdiom Phone=22, Default=27}"
+                            FontAttributes="Bold"
+                            LineBreakMode="WordWrap" />
+
+                        <Label
+                            Text="{Binding MembresiaInfo}"
+                            TextColor="#38BDF8"
+                            FontSize="{OnIdiom Phone=12, Default=13}"
+                            LineBreakMode="WordWrap" />
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- CREDENCIAL DIGITAL -->
+                <Border
+                    x:Name="SeccionQr"
+                    BackgroundColor="#B8151E2C"
+                    Stroke="#365064"
+                    StrokeThickness="1"
+                    Padding="{OnIdiom Phone=12, Default=20}"
+                    StrokeShape="RoundRectangle 16">
+
+                    <VerticalStackLayout Spacing="10">
+
+                        <Label
+                            Text="MI CREDENCIAL DIGITAL"
+                            TextColor="#00E676"
+                            FontSize="{OnIdiom Phone=16, Default=18}"
+                            FontAttributes="Bold"
+                            HorizontalTextAlignment="Center" />
+
+                        <Label
+                            Text="Presenta tu código QR en recepción para registrar tu acceso."
+                            TextColor="#CBD5E1"
+                            FontSize="12"
+                            HorizontalTextAlignment="Center"
+                            LineBreakMode="WordWrap" />
+
+                        <!-- QR CENTRADO -->
+                        <Border
+                            BackgroundColor="White"
+                            StrokeThickness="0"
+                            Padding="12"
+                            WidthRequest="{OnIdiom Phone=205, Default=250}"
+                            HeightRequest="{OnIdiom Phone=205, Default=250}"
+                            HorizontalOptions="Center"
+                            StrokeShape="RoundRectangle 14">
+
+                            <Image
+                                Source="{Binding ImagenQr}"
+                                Aspect="AspectFit"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill" />
+
+                        </Border>
+
+                        <Label
+                            Text="{Binding FolioQr}"
+                            TextColor="White"
+                            FontSize="12"
+                            FontAttributes="Bold"
+                            HorizontalTextAlignment="Center" />
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- RUTINAS -->
+                <Border
+                    x:Name="SeccionRutina"
+                    BackgroundColor="#B8151E2C"
+                    Stroke="#365064"
+                    StrokeThickness="1"
+                    Padding="{OnIdiom Phone=12, Default=20}"
+                    StrokeShape="RoundRectangle 16">
+
+                    <VerticalStackLayout
+                        Spacing="{OnIdiom Phone=10, Default=16}">
+
+                        <Label
+                            Text="MIS RUTINAS"
+                            TextColor="#00E676"
+                            FontSize="{OnIdiom Phone=17, Default=19}"
+                            FontAttributes="Bold" />
+
+                        <Label
+                            Text="{Binding ResumenRutinas}"
+                            TextColor="#38BDF8"
+                            FontSize="12"
+                            FontAttributes="Bold" />
+
+                        <Label
+                            Text="{Binding MensajeRutinas}"
+                            TextColor="#CBD5E1"
+                            FontSize="12"
+                            LineBreakMode="WordWrap" />
+
+                        <!-- LISTA DE RUTINAS -->
+                        <VerticalStackLayout
+                            BindableLayout.ItemsSource="{Binding Rutinas}"
+                            Spacing="10">
+
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+
+                                    <Border
+                                        BackgroundColor="#CC0F1724"
+                                        Stroke="#334155"
+                                        StrokeThickness="1"
+                                        Padding="{OnIdiom Phone=11, Default=15}"
+                                        StrokeShape="RoundRectangle 12">
+
+                                        <VerticalStackLayout Spacing="10">
+
+                                            <Label
+                                                Text="{Binding NombreRutina}"
+                                                TextColor="White"
+                                                FontSize="{OnIdiom Phone=16, Default=18}"
+                                                FontAttributes="Bold"
+                                                LineBreakMode="WordWrap" />
+
+                                            <Label
+                                                Text="{Binding Descripcion}"
+                                                TextColor="#CBD5E1"
+                                                FontSize="12"
+                                                LineBreakMode="WordWrap" />
+
+                                            <Label
+                                                Text="EJERCICIOS"
+                                                TextColor="#00E676"
+                                                FontSize="11"
+                                                FontAttributes="Bold" />
+
+                                            <!-- EJERCICIOS -->
+                                            <VerticalStackLayout
+                                                BindableLayout.ItemsSource="{Binding Ejercicios}"
+                                                Spacing="7">
+
+                                                <BindableLayout.ItemTemplate>
+                                                    <DataTemplate>
+
+                                                        <Border
+                                                            BackgroundColor="#D91E293B"
+                                                            StrokeThickness="0"
+                                                            Padding="10"
+                                                            StrokeShape="RoundRectangle 10">
+
+                                                            <VerticalStackLayout Spacing="5">
+
+                                                                <Label
+                                                                    Text="{Binding Nombre}"
+                                                                    TextColor="White"
+                                                                    FontSize="13"
+                                                                    FontAttributes="Bold"
+                                                                    LineBreakMode="WordWrap" />
+
+                                                                <HorizontalStackLayout
+                                                                    Spacing="10">
+
+                                                                    <Label
+                                                                        Text="{Binding Series, StringFormat='Series: {0}'}"
+                                                                        TextColor="#38BDF8"
+                                                                        FontSize="11" />
+
+                                                                    <Label
+                                                                        Text="{Binding Repeticiones, StringFormat='Reps: {0}'}"
+                                                                        TextColor="#CBD5E1"
+                                                                        FontSize="11" />
+
+                                                                </HorizontalStackLayout>
+
+                                                                <Label
+                                                                    Text="{Binding DescansoSeg, StringFormat='Descanso: {0} segundos'}"
+                                                                    TextColor="#94A3B8"
+                                                                    FontSize="11" />
+
+                                                            </VerticalStackLayout>
+                                                        </Border>
+
+                                                    </DataTemplate>
+                                                </BindableLayout.ItemTemplate>
+
+                                            </VerticalStackLayout>
+
+                                            <!-- COMENTARIO DEL ENTRENADOR -->
+                                            <Border
+    BackgroundColor="#17352C"
+    Stroke="#00C878"
+    StrokeThickness="1"
+    Padding="12"
+    IsVisible="{Binding TieneComentario}"
+    StrokeShape="RoundRectangle 12">
+
+                                                <VerticalStackLayout Spacing="8">
+                                                    <Label
+            Text="COMENTARIO DE TU ENTRENADOR"
+            TextColor="#00E676"
+            FontSize="12"
+            FontAttributes="Bold" />
+
+                                                    <Label
+            Text="{Binding ComentarioEntrenador}"
+            TextColor="White"
+            FontSize="13"
+            LineBreakMode="WordWrap" />
+                                                </VerticalStackLayout>
+                                            </Border>
+
+                                            <!-- ESTADO -->
+                                            <Label
+                                                Text="{Binding EstadoEntrenamiento}"
+                                                TextColor="#38BDF8"
+                                                FontSize="11"
+                                                LineBreakMode="WordWrap" />
+
+                                            <!-- INICIAR -->
+                                            <Button
+                                                Text="INICIAR ENTRENAMIENTO"
+                                                Command="{Binding IniciarCommand}"
+                                                BackgroundColor="#00C878"
+                                                TextColor="#07120D"
+                                                FontAttributes="Bold"
+                                                FontSize="{OnIdiom Phone=12, Default=14}"
+                                                CornerRadius="10"
+                                                HeightRequest="44"
+                                                IsEnabled="{Binding PuedeIniciar}" />
+
+                                            <!-- FINALIZAR -->
+                                            <Button
+                                                Text="FINALIZAR ENTRENAMIENTO"
+                                                Command="{Binding FinalizarCommand}"
+                                                BackgroundColor="#253248"
+                                                TextColor="White"
+                                                FontAttributes="Bold"
+                                                FontSize="{OnIdiom Phone=12, Default=14}"
+                                                CornerRadius="10"
+                                                HeightRequest="44"
+                                                IsEnabled="{Binding PuedeFinalizar}" />
+
+                                        </VerticalStackLayout>
+                                    </Border>
+
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- CERRAR SESIÓN -->
+                <Button
+                    Text="Cerrar sesión"
+                    Command="{Binding CerrarSesionCommand}"
+                    BackgroundColor="#C0253248"
+                    TextColor="#FB7185"
+                    FontAttributes="Bold"
+                    HeightRequest="46"
+                    CornerRadius="12" />
+
+                <Label
+                    Text="TUZAGYM • SISTEMA DE GESTIÓN"
+                    TextColor="#CBD5E1"
+                    FontSize="10"
+                    HorizontalTextAlignment="Center" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- NAVEGACIÓN INFERIOR -->
+        <Border
+            Grid.Row="1"
+            BackgroundColor="#D9121A27"
+            Stroke="#365064"
+            StrokeThickness="1"
+            Padding="{OnIdiom Phone='8,8', Default='10,12'}">
+
+            <Grid
+                ColumnDefinitions="*,*,*"
+                ColumnSpacing="8"
+                MaximumWidthRequest="850">
+
+                <!-- INICIO -->
+                <VerticalStackLayout
+                    Grid.Column="0"
+                    Spacing="3"
+                    HorizontalOptions="Center">
+
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="Inicio_Tapped" />
+                    </VerticalStackLayout.GestureRecognizers>
+
+                    <Label
+                        Text="⌂"
+                        TextColor="#00E676"
+                        FontSize="{OnIdiom Phone=22, Default=25}"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Inicio"
+                        TextColor="White"
+                        FontSize="11"
+                        HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+
+                <!-- MI QR -->
+                <VerticalStackLayout
+                    Grid.Column="1"
+                    Spacing="3"
+                    HorizontalOptions="Center">
+
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="MiQr_Tapped" />
+                    </VerticalStackLayout.GestureRecognizers>
+
+                    <Label
+                        Text="▦"
+                        TextColor="#00E676"
+                        FontSize="{OnIdiom Phone=22, Default=25}"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Mi QR"
+                        TextColor="White"
+                        FontSize="11"
+                        HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+
+                <!-- RUTINA -->
+                <VerticalStackLayout
+                    Grid.Column="2"
+                    Spacing="3"
+                    HorizontalOptions="Center">
+
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Tapped="Rutina_Tapped" />
+                    </VerticalStackLayout.GestureRecognizers>
+
+                    <Label
+                        Text="▤"
+                        TextColor="#00E676"
+                        FontSize="{OnIdiom Phone=22, Default=25}"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Rutina"
+                        TextColor="White"
+                        FontSize="11"
+                        HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+
+            </Grid>
+        </Border>
+
+    </Grid>
+</ContentPage>

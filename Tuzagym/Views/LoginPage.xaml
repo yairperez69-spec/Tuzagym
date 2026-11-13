@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    NavigationPage.HasNavigationBar="False"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Tuzagym.Views.LoginPage"
+    BackgroundColor="#0B0F17"
+    Shell.NavBarIsVisible="False">
+
+    <Grid
+        RowDefinitions="*"
+        ColumnDefinitions="*"
+        BackgroundColor="#0B0F17">
+
+        <!-- FONDO DEL GIMNASIO -->
+        <Image
+            Grid.Row="0"
+            Grid.Column="0"
+            Source="gym_bg.jpg"
+            Aspect="AspectFill"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            Opacity="0.65"
+            InputTransparent="True" />
+
+        <!-- CAPA OSCURA -->
+        <BoxView
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            InputTransparent="True">
+
+            <BoxView.Background>
+                <LinearGradientBrush
+                    StartPoint="0,0"
+                    EndPoint="0,1">
+
+                    <GradientStop
+                        Color="#990B0F17"
+                        Offset="0.0" />
+
+                    <GradientStop
+                        Color="#CC0B0F17"
+                        Offset="0.55" />
+
+                    <GradientStop
+                        Color="#F20B0F17"
+                        Offset="1.0" />
+
+                </LinearGradientBrush>
+            </BoxView.Background>
+        </BoxView>
+
+        <!-- SCROLL PARA WINDOWS Y ANDROID -->
+        <ScrollView
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            HorizontalScrollBarVisibility="Never"
+            VerticalScrollBarVisibility="Never">
+
+            <Grid
+                Padding="20,30"
+                ColumnDefinitions="*"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center">
+
+                <VerticalStackLayout
+                    Spacing="24"
+                    HorizontalOptions="Fill"
+                    MaximumWidthRequest="450">
+
+                    <!-- LOGOTIPO Y MARCA -->
+                    <VerticalStackLayout
+                        Spacing="10"
+                        HorizontalOptions="Fill">
+
+                        <!-- LOGOTIPO GRANDE -->
+                        <Border
+                            WidthRequest="145"
+                            HeightRequest="145"
+                            BackgroundColor="#131B2E"
+                            Stroke="#00E676"
+                            StrokeThickness="2"
+                            Padding="4"
+                            HorizontalOptions="Center"
+                            StrokeShape="RoundRectangle 73">
+
+                            <Image
+                                Source="logo_tuza.png"
+                                Aspect="AspectFit"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill" />
+
+                        </Border>
+
+                        <!-- NOMBRE -->
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            HorizontalOptions="Fill"
+                            LineBreakMode="WordWrap">
+
+                            <Label.FormattedText>
+                                <FormattedString>
+
+                                    <Span
+                                        Text="TUZAGYM "
+                                        TextColor="#00E676"
+                                        FontSize="28"
+                                        FontAttributes="Bold" />
+
+                                    <Span
+                                        Text="APP"
+                                        TextColor="White"
+                                        FontSize="28"
+                                        FontAttributes="Bold" />
+
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <!-- ESLOGAN -->
+                        <Label
+                            Text="DESPIERTA AL DIOS. CONQUISTA TU GUERRA."
+                            TextColor="#E2E8F0"
+                            FontSize="11"
+                            FontAttributes="Bold"
+                            CharacterSpacing="0.5"
+                            HorizontalTextAlignment="Center"
+                            HorizontalOptions="Fill"
+                            LineBreakMode="WordWrap" />
+
+                    </VerticalStackLayout>
+
+                    <!-- TARJETA LOGIN -->
+                    <Border
+                        BackgroundColor="#E6131B2E"
+                        Stroke="#00E676"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 20"
+                        Padding="20,24"
+                        HorizontalOptions="Fill">
+
+                        <VerticalStackLayout Spacing="16">
+
+                            <Label
+                                Text="ACCESO AL SISTEMA"
+                                TextColor="White"
+                                FontSize="17"
+                                FontAttributes="Bold"
+                                CharacterSpacing="1"
+                                HorizontalTextAlignment="Center"
+                                Margin="0,0,0,6" />
+
+                            <!-- CORREO -->
+                            <VerticalStackLayout Spacing="6">
+
+                                <Label
+                                    Text="CORREO ELECTRÓNICO"
+                                    TextColor="#00E676"
+                                    FontSize="11"
+                                    FontAttributes="Bold" />
+
+                                <Border
+                                    BackgroundColor="#1E293B"
+                                    Stroke="#334155"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="12,0">
+
+                                    <Entry
+                                        Text="{Binding Correo}"
+                                        Placeholder="ejemplo@tuzagym.com"
+                                        PlaceholderColor="#94A3B8"
+                                        TextColor="White"
+                                        Keyboard="Email"
+                                        ClearButtonVisibility="WhileEditing"
+                                        FontSize="14"
+                                        HeightRequest="50"
+                                        HorizontalOptions="Fill" />
+
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <!-- CONTRASEÑA -->
+                            <VerticalStackLayout Spacing="6">
+                                <Label Text="CONTRASEÑA" TextColor="#00E676"
+                                       FontSize="11" FontAttributes="Bold" />
+                                <Border BackgroundColor="#1E293B" Stroke="#334155"
+                                        StrokeThickness="1" StrokeShape="RoundRectangle 10"
+                                        Padding="12,0">
+                                    <Entry Text="{Binding Contrasena}" IsPassword="True"
+                                           Placeholder="••••••••" PlaceholderColor="#94A3B8"
+                                           TextColor="White" FontSize="14"
+                                           HeightRequest="50" HorizontalOptions="Fill" />
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <!-- ROL -->
+                            <VerticalStackLayout Spacing="6">
+
+                                <Label
+                                    Text="ROL DE ACCESO"
+                                    TextColor="#00E676"
+                                    FontSize="11"
+                                    FontAttributes="Bold" />
+
+                                <Border
+                                    BackgroundColor="#1E293B"
+                                    Stroke="#334155"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 10"
+                                    Padding="12,0">
+
+                                    <Picker
+                                        SelectedItem="{Binding RolSeleccionado}"
+                                        Title="Selecciona tu rol..."
+                                        TitleColor="#94A3B8"
+                                        TextColor="White"
+                                        BackgroundColor="Transparent"
+                                        FontSize="14"
+                                        HeightRequest="50"
+                                        HorizontalOptions="Fill">
+
+                                        <Picker.ItemsSource>
+                                            <x:Array
+                                                Type="{x:Type x:String}">
+
+                                                <x:String>Socio</x:String>
+                                                <x:String>Entrenador</x:String>
+                                                <x:String>Recepcionista</x:String>
+                                                <x:String>Administrador</x:String>
+
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+
+                                    </Picker>
+
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <!-- INICIAR SESIÓN -->
+                            <Button
+                                Text="INICIAR SESIÓN"
+                                Command="{Binding LoginCommand}"
+                                IsEnabled="{Binding NoCargando}"
+                                BackgroundColor="#00E676"
+                                TextColor="#0B0F17"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                CharacterSpacing="1"
+                                CornerRadius="10"
+                                HeightRequest="52"
+                                Margin="0,12,0,0"
+                                HorizontalOptions="Fill" />
+
+                            <!-- RECUPERACIÓN DEBAJO DEL BOTÓN -->
+                            <Label Text="¿Olvidaste tu contraseña?"
+                                   TextColor="#00E676" FontSize="13"
+                                   FontAttributes="Bold" HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center" Padding="10,8">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnRecuperarContrasenaTapped" />
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                            <!-- CARGANDO -->
+                            <ActivityIndicator
+                                IsRunning="{Binding Cargando}"
+                                IsVisible="{Binding Cargando}"
+                                Color="#00E676"
+                                HorizontalOptions="Center" />
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- PIE DE PÁGINA -->
+                    <Label
+                        Text="TUZAGYM APP • FUERZA • DISCIPLINA • GRANDEZA"
+                        TextColor="#94A3B8"
+                        FontSize="10"
+                        HorizontalTextAlignment="Center"
+                        LineBreakMode="WordWrap"
+                        Margin="0,0,0,10" />
+
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

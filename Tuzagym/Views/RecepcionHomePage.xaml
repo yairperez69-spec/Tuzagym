@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    NavigationPage.HasNavigationBar="False"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Tuzagym.Views.RecepcionHomePage"
+    Title="Recepción - TuzaGym"
+    BackgroundColor="#0B0F19">
+
+    <!-- El Grid ocupa toda la pantalla en Windows y Android. -->
+    <Grid RowDefinitions="*" ColumnDefinitions="*"
+          BackgroundColor="#0B0F19">
+
+        <!-- Fondo fijo: se recorta proporcionalmente, sin deformarse. -->
+        <Image Grid.Row="0" Grid.Column="0"
+               Source="fondo_gym.png"
+               Aspect="AspectFill"
+               HorizontalOptions="Fill"
+               VerticalOptions="Fill"
+               InputTransparent="True"
+               ZIndex="0" />
+
+        <!-- Superposición para mantener legibles las tarjetas. -->
+        <BoxView Grid.Row="0" Grid.Column="0"
+                 Color="#B30B0F19"
+                 HorizontalOptions="Fill"
+                 VerticalOptions="Fill"
+                 InputTransparent="True"
+                 ZIndex="1" />
+
+        <!-- CONTENIDO DESPLAZABLE -->
+        <ScrollView
+            Grid.Row="0"
+            Grid.Column="0"
+            ZIndex="2"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            BackgroundColor="Transparent"
+            VerticalScrollBarVisibility="Default">
+
+            <VerticalStackLayout
+            Padding="16,22,16,36"
+            Spacing="20"
+            MaximumWidthRequest="850"
+            HorizontalOptions="Fill">
+
+                <!-- ENCABEZADO -->
+                <Border
+                BackgroundColor="#EB121A27"
+                Stroke="#253247"
+                StrokeThickness="1"
+                Padding="20"
+                StrokeShape="RoundRectangle 18">
+
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <VerticalStackLayout
+                        Grid.Column="0"
+                        Spacing="6">
+
+                            <Label
+                            Text="TUZAGYM / RECEPCIÓN"
+                            TextColor="#00E676"
+                            FontSize="12"
+                            FontAttributes="Bold" />
+
+                            <Label
+                            Text="Recepción"
+                            TextColor="White"
+                            FontSize="25"
+                            FontAttributes="Bold" />
+
+                            <Label
+                            Text="Gestión de socios y membresías"
+                            TextColor="#94A3B8"
+                            FontSize="13" />
+
+                        </VerticalStackLayout>
+
+                        <Border
+                        Grid.Column="1"
+                        BackgroundColor="#173A30"
+                        StrokeThickness="0"
+                        Padding="12"
+                        StrokeShape="RoundRectangle 14"
+                        VerticalOptions="Center">
+
+                            <Label Text="TG" FontSize="18" FontAttributes="Bold" TextColor="#00E676" />
+
+                        </Border>
+
+                    </Grid>
+                </Border>
+
+                <!-- RESUMEN DE MEMBRESÍAS -->
+                <Grid ColumnDefinitions="*,Auto">
+
+                    <Label
+                    Grid.Column="0"
+                    Text="MEMBRESÍAS"
+                    TextColor="White"
+                    FontSize="15"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center" />
+
+                    <Button
+                    Grid.Column="1"
+                    Text="Actualizar"
+                    Command="{Binding CargarEstadisticasCommand}"
+                    BackgroundColor="#253248"
+                    TextColor="#00E676"
+                    FontSize="12"
+                    CornerRadius="10"
+                    Padding="15,8" />
+
+                </Grid>
+
+                <!-- TARJETAS DE ESTADÍSTICAS -->
+                <Grid
+                ColumnDefinitions="*,*"
+                RowDefinitions="Auto,Auto"
+                ColumnSpacing="12"
+                RowSpacing="12">
+
+                    <!-- TOTAL DE SOCIOS -->
+                    <Border
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    BackgroundColor="#E6121A27"
+                    Stroke="#253247"
+                    Padding="16"
+                    StrokeShape="RoundRectangle 14">
+
+                        <VerticalStackLayout Spacing="7">
+                            <Label Text="SOCIOS" FontSize="11" FontAttributes="Bold" TextColor="#00E676" CharacterSpacing="1.2" />
+
+                            <Label
+                            Text="{Binding TotalSocios}"
+                            TextColor="White"
+                            FontSize="28"
+                            FontAttributes="Bold" />
+
+                            <Label
+                            Text="Total de socios"
+                            TextColor="#94A3B8"
+                            FontSize="12" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- MEMBRESÍAS VIGENTES -->
+                    <Border
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    BackgroundColor="#E6121A27"
+                    Stroke="#253247"
+                    Padding="16"
+                    StrokeShape="RoundRectangle 14">
+
+                        <VerticalStackLayout Spacing="7">
+                            <Label Text="ACTIVAS" FontSize="11" FontAttributes="Bold" TextColor="#38BDF8" CharacterSpacing="1.2" />
+
+                            <Label
+                            Text="{Binding MembresiasVigentes}"
+                            TextColor="#38BDF8"
+                            FontSize="28"
+                            FontAttributes="Bold" />
+
+                            <Label
+                            Text="Membresías vigentes"
+                            TextColor="#94A3B8"
+                            FontSize="12" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- PRÓXIMAS A VENCER -->
+                    <Border
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    BackgroundColor="#E6121A27"
+                    Stroke="#253247"
+                    Padding="16"
+                    StrokeShape="RoundRectangle 14">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding VerProximasAVencerCommand}" />
+                        </Border.GestureRecognizers>
+
+                        <VerticalStackLayout Spacing="7">
+                            <Label Text="POR VENCER" FontSize="11" FontAttributes="Bold" TextColor="#FBBF24" CharacterSpacing="1.2" />
+
+                            <Label
+                            Text="{Binding ProximasAVencer}"
+                            TextColor="#FBBF24"
+                            FontSize="28"
+                            FontAttributes="Bold" />
+
+                            <Label
+                            Text="Próximas a vencer"
+                            TextColor="#94A3B8"
+                            FontSize="12" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- MEMBRESÍAS VENCIDAS -->
+                    <Border
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    BackgroundColor="#E6121A27"
+                    Stroke="#253247"
+                    Padding="16"
+                    StrokeShape="RoundRectangle 14">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding VerMembresiasVencidasCommand}" />
+                        </Border.GestureRecognizers>
+
+                        <VerticalStackLayout Spacing="7">
+                            <Label Text="VENCIDAS" FontSize="11" FontAttributes="Bold" TextColor="#FB7185" CharacterSpacing="1.2" />
+
+                            <Label
+                            Text="{Binding MembresiasVencidas}"
+                            TextColor="#FB7185"
+                            FontSize="28"
+                            FontAttributes="Bold" />
+
+                            <Label
+                            Text="Membresías vencidas"
+                            TextColor="#94A3B8"
+                            FontSize="12" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                </Grid>
+
+                <!-- Renovación de membresías -->
+                <Button
+                    Text="RENOVAR MEMBRESÍA"
+                    Command="{Binding RenovarMembresiaCommand}"
+                    BackgroundColor="#00E676"
+                    TextColor="#07130D"
+                    FontAttributes="Bold"
+                    FontSize="14"
+                    HeightRequest="52"
+                    CornerRadius="12" />
+
+                <Label
+                Text="{Binding MensajeEstadisticas}"
+                TextColor="#94A3B8"
+                FontSize="12"
+                HorizontalTextAlignment="Center" />
+
+                <!-- REGISTRO DE NUEVO SOCIO -->
+                <Border
+                BackgroundColor="#E6121A27"
+                Stroke="#253247"
+                StrokeThickness="1"
+                Padding="20"
+                StrokeShape="RoundRectangle 18">
+
+                    <VerticalStackLayout Spacing="17">
+
+                        <Label
+                        Text="REGISTRO DE NUEVO SOCIO"
+                        TextColor="#00E676"
+                        FontSize="18"
+                        FontAttributes="Bold" />
+
+                        <Label
+                        Text="Completa los datos para dar de alta una nueva membresía."
+                        TextColor="#94A3B8"
+                        FontSize="12" />
+
+                        <!-- NOMBRE -->
+                        <VerticalStackLayout Spacing="7">
+
+                            <Label
+                            Text="NOMBRE COMPLETO"
+                            TextColor="#CBD5E1"
+                            FontSize="12"
+                            FontAttributes="Bold" />
+
+                            <Border
+                            BackgroundColor="#0B0F19"
+                            Stroke="#334155"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,2">
+
+                                <Entry
+                                Text="{Binding NombreCompleto}"
+                                Placeholder="Nombre y apellidos"
+                                PlaceholderColor="#64748B"
+                                TextColor="White"
+                                FontSize="15"
+                                HeightRequest="48" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- CORREO -->
+                        <VerticalStackLayout Spacing="7">
+
+                            <Label
+                            Text="CORREO ELECTRÓNICO"
+                            TextColor="#CBD5E1"
+                            FontSize="12"
+                            FontAttributes="Bold" />
+
+                            <Border
+                            BackgroundColor="#0B0F19"
+                            Stroke="#334155"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,2">
+
+                                <Entry
+                                Text="{Binding Correo}"
+                                Placeholder="correo@ejemplo.com"
+                                PlaceholderColor="#64748B"
+                                TextColor="White"
+                                FontSize="15"
+                                HeightRequest="48"
+                                Keyboard="Email" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- TELÉFONO -->
+                        <VerticalStackLayout Spacing="7">
+
+                            <Label
+                            Text="TELÉFONO"
+                            TextColor="#CBD5E1"
+                            FontSize="12"
+                            FontAttributes="Bold" />
+
+                            <Border
+                            BackgroundColor="#0B0F19"
+                            Stroke="#334155"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,2">
+
+                                <Entry
+                                Text="{Binding Telefono}"
+                                Placeholder="Número telefónico"
+                                PlaceholderColor="#64748B"
+                                TextColor="White"
+                                FontSize="15"
+                                HeightRequest="48"
+                                Keyboard="Telephone" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- MEMBRESÍA -->
+                        <VerticalStackLayout Spacing="7">
+
+                            <Label
+                            Text="TIPO DE MEMBRESÍA"
+                            TextColor="#CBD5E1"
+                            FontSize="12"
+                            FontAttributes="Bold" />
+
+                            <Border
+                            BackgroundColor="#0B0F19"
+                            Stroke="#334155"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,2">
+
+                                <Picker
+                                Title="Seleccionar membresía"
+                                TitleColor="#94A3B8"
+                                TextColor="White"
+                                FontSize="15"
+                                HeightRequest="48"
+                                SelectedItem="{Binding TipoMembresiaSelected}">
+
+                                    <Picker.ItemsSource>
+                                        <x:Array Type="{x:Type x:String}">
+                                            <x:String>Normal</x:String>
+                                            <x:String>VIP</x:String>
+                                        </x:Array>
+                                    </Picker.ItemsSource>
+
+                                </Picker>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- ENTRENADOR -->
+                        <VerticalStackLayout Spacing="7">
+
+                            <Label
+                            Text="ENTRENADOR ASIGNADO (OPCIONAL)"
+                            TextColor="#38BDF8"
+                            FontSize="12"
+                            FontAttributes="Bold" />
+
+                            <Border
+                            BackgroundColor="#0B0F19"
+                            Stroke="#334155"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,2">
+
+                                <Picker
+                                Title="Seleccionar entrenador"
+                                TitleColor="#94A3B8"
+                                TextColor="White"
+                                FontSize="15"
+                                HeightRequest="48"
+                                ItemsSource="{Binding Entrenadores}"
+                                ItemDisplayBinding="{Binding NombreCompleto}"
+                                SelectedItem="{Binding EntrenadorSeleccionado}" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- MÉTODO DE PAGO -->
+                        <VerticalStackLayout Spacing="7">
+
+                            <Label
+                            Text="MÉTODO DE PAGO"
+                            TextColor="#CBD5E1"
+                            FontSize="12"
+                            FontAttributes="Bold" />
+
+                            <Border
+                            BackgroundColor="#0B0F19"
+                            Stroke="#334155"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,2">
+
+                                <Picker
+                                TextColor="White"
+                                FontSize="15"
+                                HeightRequest="48"
+                                SelectedItem="{Binding MetodoPagoSelected}">
+
+                                    <Picker.ItemsSource>
+                                        <x:Array Type="{x:Type x:String}">
+                                            <x:String>Efectivo</x:String>
+                                            <x:String>Tarjeta</x:String>
+                                            <x:String>Transferencia</x:String>
+                                        </x:Array>
+                                    </Picker.ItemsSource>
+                                </Picker>
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- MONTO RECIBIDO -->
+                        <VerticalStackLayout Spacing="7">
+
+                            <Label
+                            Text="MONTO RECIBIDO ($)"
+                            TextColor="#CBD5E1"
+                            FontSize="12"
+                            FontAttributes="Bold" />
+
+                            <Border
+                            BackgroundColor="#0B0F19"
+                            Stroke="#334155"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,2">
+
+                                <Entry
+                                Text="{Binding MontoPagado}"
+                                Keyboard="Numeric"
+                                TextColor="White"
+                                FontSize="16"
+                                HeightRequest="48" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- BOTÓN REGISTRAR SOCIO -->
+                        <Button
+                        Text="REGISTRAR SOCIO"
+                        Command="{Binding RegistrarSocioCommand}"
+                        BackgroundColor="#00E676"
+                        TextColor="#07130D"
+                        FontAttributes="Bold"
+                        FontSize="15"
+                        HeightRequest="54"
+                        CornerRadius="12"
+                        Margin="0,12,0,0" />
+
+                        <!-- ESCÁNER QR -->
+                        <Button
+                        Text="ESCANEAR QR DE ASISTENCIA"
+                        Command="{Binding SimularEscaneoQrCommand}"
+                        BackgroundColor="#253248"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        HeightRequest="52"
+                        CornerRadius="12" />
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- REGISTRO DE GASTOS -->
+                <Border
+                BackgroundColor="#E6121A27"
+                Stroke="#253247"
+                StrokeThickness="1"
+                Padding="20"
+                StrokeShape="RoundRectangle 18">
+
+                    <VerticalStackLayout Spacing="16">
+
+                        <Label
+                        Text="REGISTRO DE GASTOS"
+                        TextColor="#00E676"
+                        FontSize="18"
+                        FontAttributes="Bold" />
+
+                        <Label
+                        Text="Registra los gastos operativos del gimnasio en la caja abierta."
+                        TextColor="#94A3B8"
+                        FontSize="12" />
+
+                        <!-- CONCEPTO -->
+                        <VerticalStackLayout Spacing="7">
+
+                            <Label
+                            Text="CONCEPTO DEL GASTO"
+                            TextColor="#CBD5E1"
+                            FontSize="12"
+                            FontAttributes="Bold" />
+
+                            <Border
+                            BackgroundColor="#0B0F19"
+                            Stroke="#334155"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,2">
+
+                                <Entry
+                                Text="{Binding ConceptoGasto}"
+                                Placeholder="Ej. Productos de limpieza"
+                                PlaceholderColor="#64748B"
+                                TextColor="White"
+                                FontSize="15"
+                                MaxLength="200"
+                                HeightRequest="48" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- MONTO DEL GASTO -->
+                        <VerticalStackLayout Spacing="7">
+
+                            <Label
+                            Text="MONTO DEL GASTO ($)"
+                            TextColor="#CBD5E1"
+                            FontSize="12"
+                            FontAttributes="Bold" />
+
+                            <Border
+                            BackgroundColor="#0B0F19"
+                            Stroke="#334155"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,2">
+
+                                <Entry
+                                Text="{Binding MontoGastoTexto}"
+                                Placeholder="Ej. 150.00"
+                                PlaceholderColor="#64748B"
+                                Keyboard="Numeric"
+                                TextColor="White"
+                                FontSize="15"
+                                HeightRequest="48" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <!-- REGISTRAR GASTO -->
+                        <Button
+                        Text="REGISTRAR GASTO"
+                        Command="{Binding RegistrarGastoCommand}"
+                        IsEnabled="{Binding NoRegistrandoGasto}"
+                        BackgroundColor="#00E676"
+                        TextColor="#07130D"
+                        FontAttributes="Bold"
+                        FontSize="15"
+                        HeightRequest="54"
+                        CornerRadius="12" />
+
+                        <ActivityIndicator
+                        IsRunning="{Binding RegistrandoGasto}"
+                        IsVisible="{Binding RegistrandoGasto}"
+                        Color="#00E676"
+                        HorizontalOptions="Center" />
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- CERRAR SESIÓN -->
+                <Button
+                Text="Cerrar sesión"
+                Command="{Binding CerrarSesionCommand}"
+                BackgroundColor="Transparent"
+                TextColor="#FB7185"
+                FontSize="14"
+                HeightRequest="45" />
+
+                <Label
+                Text="TUZAGYM • SISTEMA DE GESTIÓN"
+                TextColor="#64748B"
+                FontSize="10"
+                HorizontalTextAlignment="Center" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
